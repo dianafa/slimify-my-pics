@@ -1,0 +1,21 @@
+{
+  "name": "slimify-my-pics",
+  "description": "Images on your page analyticis tool",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dianafa/slimify-my-pics"
+  },
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "^5.0.0-alpha.2",
+    "react": "^0.14.3"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "react",
+    "images",
+    "optimization"
+  ]
+}
