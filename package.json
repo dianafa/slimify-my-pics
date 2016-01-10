@@ -9,6 +9,7 @@
   "version": "0.0.1",
   "dependencies": {
     "express": "^5.0.0-alpha.2",
+    "jquery": "^2.2.0",
     "react": "^0.14.3"
   },
   "keywords": [
