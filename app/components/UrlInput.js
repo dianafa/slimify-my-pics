@@ -1,18 +1,21 @@
 var React = require('react');
 
-var ReactDOM = require('react-dom');
-
 var UrlInput = React.createClass({
+	onClick: function() {
+		console.log("click!");
+	},
+
 	render: function() {
 		return (
 			<div>
+				<p>URL:</p>
 				<input type="text" name="url" />
+				<button className="url-submit-button" onClick={this.onClick}>
+					Start
+				</button>
 			</div>
 		)
 	}
 })
 
-ReactDOM.render(
-	<UrlInput />,
-	document.getElementById('input')
-)
+module.exports = UrlInput;
