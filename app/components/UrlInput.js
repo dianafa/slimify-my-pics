@@ -11,12 +11,7 @@ var UrlInput = React.createClass({
 		return {
 			message: "please run test",
 			value: 'www.google.com',
-			test_id: 0,
-			breakdown: {
-				image: {
-					bytes: null
-				}
-			}
+			test_id: 0
 		};
 	},
 
@@ -54,23 +49,34 @@ var UrlInput = React.createClass({
 	},
 
 	checkForResults: function() {
-		var interval = setInterval(this.getPageBreakdown, 2000);
+		var interval = setInterval(this.getPageBreakdown, 4000);
 		this.setState({interval: interval});
 	},
 
 	render: function() {
-		var value = this.state.value;
+		var value = this.state.value,
+			result = null;
+
+		if (this.state.breakdown) {
+			result = (
+				<div className="result">
+					Images on your page have {this.state.breakdown.image.bytes}B.
+					What about optimazing them?
+				</div>);
+		}
 		return (
-			<div>
-				<p>URL:</p>
-				<input type="text" name="url" value={value} onChange={this.handleChange} />
-				<button className="url-submit-button" onClick={this.onClick}>
+			<div className="row url-input">
+				<div className="medium-3 columns">
+					<label className="text-right middle">URL</label>
+				</div>
+				<div className="medium-5 columns">
+					<input type="text" name="url" value={value} onChange={this.handleChange} />
+				</div>
+				<button type="button" className="success button" onClick={this.onClick}>
 					Start
 				</button>
-				<h3>{this.state.message}</h3>
-				<Results
-					image_bytes = {this.state.breakdown.image.bytes}
-				/>
+				<div className="test-status-message">{this.state.message}</div>
+				{result}
 			</div>
 		)
 	}
