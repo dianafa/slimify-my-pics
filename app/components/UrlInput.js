@@ -1,7 +1,6 @@
 var React = require('react');
 var config = require('../../config.js');
-var $ = require ('jquery')
-
+var $ = require ('jquery');
 
 var Results = require('./Results.js');
 
