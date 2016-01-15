@@ -21,8 +21,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/url', UrlRoute.findAll);
+app.get('/url/addr/:address', UrlRoute.findByAddress);
 app.get('/url/:id', UrlRoute.findById);
+app.get('/url', UrlRoute.findAll);
 
 app.post('/url', function(req, res, next) {
 	console.log("req", req.body);
