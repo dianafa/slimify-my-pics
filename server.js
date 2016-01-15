@@ -13,22 +13,34 @@ var TestModel = require('./models/test.js');
 var UrlRoute = require('./app/routes/url');
 var TestRoute = require('./app/routes/test');
 
+//DB
 mongoose.connect(config.database);
 mongoose.connection.on('error', function() {
   console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?');
 });
 
+//app
 var app = express();
-
 app.set('port', process.env.PORT || 3000);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/url/addr/:address', UrlRoute.findByAddress);
+//routes
+
+/*
+ * URL ROUTE
+ */
 app.get('/url/domain/:address', UrlRoute.findByDomain);
-app.get('/url/:id', UrlRoute.findById);
+app.get('/url/:id', function(req, res, next) {
+	if (typeof req.params.id === 'number') {
+		return UrlRoute.findById(req, res, next);
+	}
+
+	return UrlRoute.findByAddress(req, res, next);
+});
+
 app.get('/url', UrlRoute.findAll);
 
 app.post('/url', function(req, res, next) {
@@ -41,11 +53,12 @@ app.post('/url', function(req, res, next) {
 			testedBefore: true
 		});
 
-	console.log(new_url);
-
 	UrlRoute.tryToSave(new_url, req, res);
 })
 
+/*
+ * TEST ROUTE
+ */
 app.get('/test/url/:urlId', TestRoute.findByUrl);
 app.get('/test/:id', TestRoute.findById);
 app.get('/test', TestRoute.findAll);

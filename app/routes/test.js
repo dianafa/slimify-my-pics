@@ -30,7 +30,23 @@ var TestRoute = {
 	},
 
 	findByUrl: function(req, res, next) {
+		var url = req.params.url;
+		TestModel.find({ urlId: urlId }, function (err, test) {
+			if (err) {
+				console.log(err);
+				res.send({
+					message:'Whoooops, something went wrong :D'
+				});
+			} else {
+				res.send(test)
+			}
+		})
+	},
+
+    findByAddress: function(req, res, next) {
 		var address = req.params.address;
+
+
 		TestModel.find({ address: new RegExp(address, 'i') }, function (err, test) {
 			if (err) {
 				console.log(err);
@@ -41,7 +57,7 @@ var TestRoute = {
 				res.send(test)
 			}
 		})
-    },
+	},
 
 	tryToSave: function(new_test, req, res) {
 		new_test.save(function(err) {
@@ -56,6 +72,19 @@ var TestRoute = {
 				});
             }
 		});
+	},
+
+	findAllWithUrl: function(url) {
+		TestModel.find({ address: new RegExp(address, 'i') }, function (err, test) {
+			if (err) {
+				console.log(err);
+				res.send({
+					message:'Whoooops, something went wrong :D'
+				});
+			} else {
+				res.send(test)
+			}
+		})
 	}
 };
 

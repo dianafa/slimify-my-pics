@@ -1,4 +1,6 @@
 var UrlModel = require('../../models/url.js');
+var TestModel = require('../../models/test.js');
+var TestRoute = require('./test.js')
 
 var UrlRoute = {
 	findAll: function(req, res, next) {
@@ -30,21 +32,44 @@ var UrlRoute = {
 	},
 
 	findByAddress: function(req, res, next) {
-		var address = req.params.address,
-			result = null;
+		var address = req.params.id,
+			query  = UrlModel.where({ address: address }),
+			result = {
+				url: null,
+				tests: null
+			},
+			id = null;
 
-		UrlModel.find({ address: address }, function (err, url) {
+		query.findOne({ address: address }, function (err, url) {
 			if (err) {
 				console.log(err);
-				result = {
+				res.send({
 					message:'Whoooops, something went wrong :D'
-				};
-			} else {
-				result = url;
+				});
+				return;
 			}
-		})
 
-		res.send(result)
+			//if url not found
+			if (!url) {
+				res.send({});
+				return;
+			}
+
+			id = url.urlId;
+			result.url = url;
+
+			TestModel.find({ urlId: id }, function (err, t) {
+				if (err) {
+					res.send({
+						message:'Whoooops, something went wrong :D'
+					});
+					return;
+				}
+
+				result.tests = t;
+				res.send(result);
+			})
+		})
     },
 
     findByDomain: function(req, res, next) {
@@ -64,8 +89,8 @@ var UrlRoute = {
 	tryToSave: function(new_url, req, res) {
 		new_url.save(function(err) {
 			if (err) {
-				console.error(String(err));
 				new_url.urlId++;
+				console.error(String(err));
 				console.log("Creating URL record with new ID: ", new_url)
 				UrlRoute.tryToSave(new_url, req, res);
 			} else {
