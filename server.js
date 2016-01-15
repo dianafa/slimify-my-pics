@@ -3,10 +3,15 @@ var path = require('path');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var config = require('./config');
+var bodyParser = require('body-parser');
+
+//models
 var UrlModel = require('./models/url.js');
 var TestModel = require('./models/test.js');
+
+//routes
 var UrlRoute = require('./app/routes/url');
-var bodyParser = require('body-parser');
+var TestRoute = require('./app/routes/test');
 
 mongoose.connect(config.database);
 mongoose.connection.on('error', function() {
@@ -22,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/url/addr/:address', UrlRoute.findByAddress);
+app.get('/url/domain/:address', UrlRoute.findByDomain);
 app.get('/url/:id', UrlRoute.findById);
 app.get('/url', UrlRoute.findAll);
 
@@ -40,31 +46,21 @@ app.post('/url', function(req, res, next) {
 	UrlRoute.tryToSave(new_url, req, res);
 })
 
+app.get('/test/url/:urlId', TestRoute.findByUrl);
+app.get('/test/:id', TestRoute.findById);
+app.get('/test', TestRoute.findAll);
 
-app.post('/tests', function(req, res, next) {
-	var gender = req.body.gender;
-	var characterName = req.body.name;
-	var new_url = new UrlModel({
-		urlId: 7,
-		address: 'www.lol.com',
-		tests: 0
-	});
+app.post('/test', function(req, res, next) {
+	console.log("req", req.body);
+	var new_test = new TestModel({
+			testId: req.body.id,
+			urlId: req.body.urlId,
+			breakdownImg: req.body.breakdownImg,
+			totalPageSize: req.body.totalPageSize
+		});
 
-	console.log(new_url);
-
-	new_url.save(UrlModel,
-		function(err,resp) {
-			if(err) {
-				console.log(err);
-				res.send({
-					message :'something went wrong'
-				});
-			} else {
-				res.send({
-					message:'the appointment has bees saved'
-				});
-			}
-	});
+	console.log(new_test);
+	TestRoute.tryToSave(new_test, req, res);
 })
 
 app.get('/', function (req, res) {

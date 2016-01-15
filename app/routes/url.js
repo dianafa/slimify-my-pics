@@ -5,8 +5,8 @@ var UrlRoute = {
 		var name = req.query.name;
 		UrlModel.find({}, function (err, urls) {
 			if (err) {
+				console.log(err);
 				res.send({
-					console.log(err);
 					message:'Whoooops, something went wrong :D'
 				});
 			} else {
@@ -19,8 +19,8 @@ var UrlRoute = {
 		var id = req.params.id;
 		UrlModel.find({ urlId: id }, function (err, url) {
 			if (err) {
+				console.log(err);
 				res.send({
-					console.log(err);
 					message:'Whoooops, something went wrong :D'
 				});
 			} else {
@@ -30,11 +30,29 @@ var UrlRoute = {
 	},
 
 	findByAddress: function(req, res, next) {
+		var address = req.params.address,
+			result = null;
+
+		UrlModel.find({ address: address }, function (err, url) {
+			if (err) {
+				console.log(err);
+				result = {
+					message:'Whoooops, something went wrong :D'
+				};
+			} else {
+				result = url;
+			}
+		})
+
+		res.send(result)
+    },
+
+    findByDomain: function(req, res, next) {
 		var address = req.params.address;
 		UrlModel.find({ address: new RegExp(address, 'i') }, function (err, url) {
 			if (err) {
+				console.log(err);
 				res.send({
-					console.log(err);
 					message:'Whoooops, something went wrong :D'
 				});
 			} else {
