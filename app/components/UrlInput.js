@@ -8,7 +8,7 @@ var Results = require('./Results.js');
 var UrlInput = React.createClass({
 	getInitialState: function() {
 		return {
-			message: "please run test",
+			message: "Please run test",
 			value: 'www.google.com',
 			test_id: 0
 		};
@@ -19,9 +19,10 @@ var UrlInput = React.createClass({
 	},
 
 	onClick: function() {
-		this.getTestId().then(()=> {
-			this.checkForResults();
-		})
+		// this.getTestId().then(()=> {
+		// 	this.checkForResults();
+		// })
+		this.props.showHistory(this.state.value);
 	},
 
 	getTestId: function() {
