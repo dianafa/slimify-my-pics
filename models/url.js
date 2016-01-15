@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 
 var urlSchema = new mongoose.Schema({
-  urlId: { type: String, unique: true, index: true },
+  urlId: { type: Number, index: true },
   address: String,
-  tests: { type: Number, default: 0 }
+  testedBefore: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model('Url', urlSchema);

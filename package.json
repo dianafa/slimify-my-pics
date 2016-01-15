@@ -9,6 +9,7 @@
   "version": "0.0.1",
   "dependencies": {
     "alt": "^0.17.8",
+    "body-parser": "^1.14.2",
     "express": "^5.0.0-alpha.2",
     "jquery": "^2.2.0",
     "mongoose": "^4.2.5",
