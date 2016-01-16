@@ -46,57 +46,9 @@ var History = React.createClass({
 			]
 		}
 
-		var dataPie = [
-		    {
-				value: 300,
-				color:"#F7464A",
-				highlight: "#FF5A5E",
-				label: "Image"
-		    },
-		    {
-				value: 50,
-				color: "#46BFBD",
-				highlight: "#5AD3D1",
-				label: "CSS"
-		    },
-			{
-				value: 100,
-				color: "#FDB45C",
-				highlight: "#FFC870",
-				label: "Flash"
-		    },
-			{
-				value: 100,
-				color: "#FDB45C",
-				highlight: "#FFC870",
-				label: "Font"
-			},
-			{
-				value: 100,
-				color: "#FDB45C",
-				highlight: "#FFC870",
-				label: "HTML"
-			},
-			{
-				value: 100,
-				color: "#FDB45C",
-				highlight: "#FFC870",
-				label: "JS"
-			},
-			{
-				value: 100,
-				color: "#FDB45C",
-				highlight: "#FFC870",
-				label: "other"
-			}
-		];
-
 		if (document.getElementById("lineChart")) {
 			var ctx = document.getElementById("lineChart").getContext("2d");
 			var myLineChart = new Chart(ctx).Line(data, {});
-
-			var ctxPie = document.getElementById("pieChart").getContext("2d");
-			var myDoughnutChart = new Chart(ctxPie).Doughnut(dataPie, {});
 		}
 
 		if (this.state.url) {
@@ -109,7 +61,6 @@ var History = React.createClass({
 
 		return (
 			<div>
-				<canvas id="pieChart" width="300" height="300"></canvas>
 				{result}
 				<canvas id="lineChart" width="1000" height="600"></canvas>
 			</div>
