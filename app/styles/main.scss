@@ -1,3 +1,21 @@
 body {
-	background-color: pink;
+	background-color: lightgray;
+}
+
+.welcome {
+	text-align: center;
+	padding: 50px;
+}
+
+.result {
+	text-align: center;
+}
+
+.test-status-message {
+	text-align: center;
+	font-size: 26px;
+}
+
+#myChart {
+	margin: 100px;
 }

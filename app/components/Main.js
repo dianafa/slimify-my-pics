@@ -29,8 +29,6 @@ var Main = React.createClass({
 		},
 		url = 'http://localhost:3000/test';
 
-		console.log('wysylam', data)
-
 		$.ajax({
 			type: "POST",
 			url: url,
@@ -41,7 +39,7 @@ var Main = React.createClass({
 	render: function() {
 		return (
 			<div className="main-content">
-				<h2>Welcome!</h2>
+				<h2 className="welcome">Welcome!</h2>
 				<UrlInput showHistory={this.showHistory} addToHistory={this.addToHistory} />
 				<History ref="historyComponent" />
 			</div>

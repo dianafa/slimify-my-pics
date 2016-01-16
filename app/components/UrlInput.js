@@ -42,6 +42,7 @@ var UrlInput = React.createClass({
 				if (result.statusCode == 200) {
 					clearInterval(this.state.interval);
 					this.setState({breakdown: result.data.runs[1].firstView.breakdown});
+					this.setState({totalPageSize: result.data.runs[1].firstView.bytesIn});
 					console.log("breakdown", this.state.breakdown)
 
 					//save to DB
@@ -52,7 +53,7 @@ var UrlInput = React.createClass({
 	},
 
 	checkForResults: function() {
-		var interval = setInterval(this.getPageBreakdown, 4000);
+		var interval = setInterval(this.getPageBreakdown, 1000);
 		this.setState({interval: interval});
 	},
 
@@ -61,10 +62,17 @@ var UrlInput = React.createClass({
 			result = null;
 
 		if (this.state.breakdown) {
+			let percentage = Math.round(this.state.breakdown.image.bytes / this.state.totalPageSize * 100 * 100) / 100,
+				webp = Math.round(this.state.breakdown.image.bytes * 0.19 * 100) / 100,
+				bpg = Math.round(this.state.breakdown.image.bytes * 0.83 * 100) / 100;
+
 			result = (
 				<div className="result">
-					Images on your page have {this.state.breakdown.image.bytes}B.
-					What about optimazing them?
+					<p>Images on your page have <h3>{this.state.breakdown.image.bytes}B</h3>
+					It is <strong>{percentage}%</strong> of your total page size!
+					What about optimazing them?</p>
+					<p>Using <strong>WEBP</strong> format your page would save up to {webp}B.</p>
+					<p>Using <strong>BPG</strong> format your page would save up to {bpg}B.</p>
 				</div>);
 		}
 		return (
@@ -78,7 +86,7 @@ var UrlInput = React.createClass({
 				<button type="button" className="success button" onClick={this.onClick}>
 					Start
 				</button>
-				<div className="test-status-message">{this.state.message}</div>
+				<div className="medium-12 columns test-status-message">{this.state.message}</div>
 				{result}
 			</div>
 		)
