@@ -46,8 +46,9 @@ var History = React.createClass({
 			]
 		}
 
-		if (document.getElementById("lineChart")) {
-			var ctx = document.getElementById("lineChart").getContext("2d");
+		var lineChart = document.getElementById("lineChart");
+		if (lineChart) {
+			var ctx = lineChart.getContext("2d");
 			var myLineChart = new Chart(ctx).Line(data, {});
 		}
 
