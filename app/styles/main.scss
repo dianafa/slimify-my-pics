@@ -3,8 +3,8 @@ body {
 }
 
 .welcome {
-	text-align: center;
 	padding: 50px;
+	text-align: center;
 }
 
 .result {
@@ -12,10 +12,16 @@ body {
 }
 
 .test-status-message {
-	text-align: center;
 	font-size: 26px;
+	font-weight: 800;
+	text-align: center;
 }
 
-#myChart {
+#lineChart {
 	margin: 100px;
+}
+
+#pieChart {
+	margin-left: 500px;
+	margin-right: 500px;
 }

@@ -19,6 +19,9 @@ var UrlInput = React.createClass({
 	},
 
 	onClick: function() {
+		this.setState({breakdown: null});
+		this.setState({totalPageSize: null});
+
 		this.getTestId().then(()=> {
 			this.checkForResults();
 		})
@@ -43,6 +46,7 @@ var UrlInput = React.createClass({
 					clearInterval(this.state.interval);
 					this.setState({breakdown: result.data.runs[1].firstView.breakdown});
 					this.setState({totalPageSize: result.data.runs[1].firstView.bytesIn});
+					document.getElementsByClassName('test-status-message')[0].style.color = 'green';
 					console.log("breakdown", this.state.breakdown)
 
 					//save to DB
