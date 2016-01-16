@@ -19,9 +19,9 @@ var UrlInput = React.createClass({
 	},
 
 	onClick: function() {
-		// this.getTestId().then(()=> {
-		// 	this.checkForResults();
-		// })
+		this.getTestId().then(()=> {
+			this.checkForResults();
+		})
 		this.props.showHistory(this.state.value);
 	},
 
@@ -36,15 +36,18 @@ var UrlInput = React.createClass({
 
 	getPageBreakdown: function() {
 		return $.getJSON('http://www.webpagetest.org/jsonResult.php?test=' + this.state.test_id + '&breakdown=1&noimages=1')
-			.then((response) => {
-				this.setState({message: response.statusText});
-				console.log(response);
-				if (response.statusCode == 200) {
+			.then((result) => {
+				this.setState({message: result.statusText});
+				console.log(result);
+				if (result.statusCode == 200) {
 					clearInterval(this.state.interval);
-					this.setState({breakdown: response.data.runs[1].firstView.breakdown});
+					this.setState({breakdown: result.data.runs[1].firstView.breakdown});
 					console.log("breakdown", this.state.breakdown)
+
+					//save to DB
+					this.props.addToHistory(result);
 				}
-				return response;
+				return result;
 			});
 	},
 

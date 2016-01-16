@@ -10,14 +10,12 @@ var History = React.createClass({
 	},
 
 	showHistory: function(url) {
-		console.log("diana");
-		this.setState({url: url});
-
 		var tests = this.getHistory(url);
+		this.setState({url: url});
 	},
 
 	getHistory: function(url) {
-		return $.getJSON('http://localhost:3000/url/' + url)
+		return $.getJSON('http://localhost:3000/test/' + url)
 			.then((data) => {
 				console.log("data", data)
 				return data;
@@ -25,7 +23,7 @@ var History = React.createClass({
 	},
 
 	render: function() {
-		var result = null;
+		var result;
 
 		if (this.state.url) {
 			result = (

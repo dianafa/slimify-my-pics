@@ -30,8 +30,8 @@ var TestRoute = {
 	},
 
 	findByUrl: function(req, res, next) {
-		var url = req.params.url;
-		TestModel.find({ urlId: urlId }, function (err, test) {
+		var url = req.params.id;
+		TestModel.find({ url: new RegExp(url + '$', 'i') }, function (err, test) {
 			if (err) {
 				console.log(err);
 				res.send({

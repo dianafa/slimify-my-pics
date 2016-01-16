@@ -66,15 +66,21 @@ app.post('/url', function(req, res, next) {
 /*
  * TEST ROUTE
  */
-app.get('/test/url/:urlId', TestRoute.findByUrl);
-app.get('/test/:id', TestRoute.findById);
+app.get('/test/:id', function(req, res, next) {
+	if (typeof req.params.id === 'number') {
+		return TestRoute.findById(req, res, next);
+	}
+
+	return TestRoute.findByUrl(req, res, next);
+});
 app.get('/test', TestRoute.findAll);
 
 app.post('/test', function(req, res, next) {
 	console.log("req", req.body);
 	var new_test = new TestModel({
-			testId: req.body.id,
+			testId: req.body.testId,
 			urlId: req.body.urlId,
+			url: req.body.url,
 			breakdownImg: req.body.breakdownImg,
 			totalPageSize: req.body.totalPageSize
 		});
