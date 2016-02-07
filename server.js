@@ -6,11 +6,9 @@ var config = require('./config');
 var bodyParser = require('body-parser');
 
 //models
-var UrlModel = require('./models/url.js');
 var TestModel = require('./models/test.js');
 
 //routes
-var UrlRoute = require('./app/routes/url');
 var TestRoute = require('./app/routes/test');
 
 //DB
@@ -35,33 +33,6 @@ app.all('*', function(req, res, next) {
 });
 
 //routes
-
-/*
- * URL ROUTE
- */
-app.get('/url/domain/:address', UrlRoute.findByDomain);
-app.get('/url/:id', function(req, res, next) {
-	if (typeof req.params.id === 'number') {
-		return UrlRoute.findById(req, res, next);
-	}
-
-	return UrlRoute.findByAddress(req, res, next);
-});
-
-app.get('/url', UrlRoute.findAll);
-
-app.post('/url', function(req, res, next) {
-	console.log("req", req.body);
-	var address = req.body.address,
-		id = req.body.id,
-		new_url = new UrlModel({
-			urlId: id,
-			address: address,
-			testedBefore: true
-		});
-
-	UrlRoute.tryToSave(new_url, req, res);
-})
 
 /*
  * TEST ROUTE

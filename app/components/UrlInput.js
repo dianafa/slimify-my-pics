@@ -22,6 +22,17 @@ var UrlInput = React.createClass({
 		this.setState({breakdown: null});
 		this.setState({totalPageSize: null});
 
+// 		//$.get("http://google.com", function(response) { debugger });
+// 		$.ajax({
+//     url: 'http://www.google.com/',
+//     type: 'GET',
+//     crossDomain: true, // enable this
+//     dataType: 'jsonp',
+//     success: function(data) { debugger },
+//     error: function(error) { debugger },
+//     //beforeSend: setHeader
+// });
+
 		this.getTestId().then(()=> {
 			this.checkForResults();
 		})

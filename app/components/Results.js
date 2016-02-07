@@ -9,11 +9,11 @@ var Results = React.createClass({
 
 	render: function() {
 		let result = null,
-			breakdown = this.props.breakdown;
-
-		let percentage = Math.round(breakdown.image.bytes / this.props.fullResults.bytesIn * 100 * 100) / 100,
+			breakdown = this.props.breakdown,
+			percentage = Math.round(breakdown.image.bytes / this.props.fullResults.bytesIn * 100 * 100) / 100,
 			webp = Math.round(breakdown.image.bytes * 0.19),
 			bpg = Math.round(breakdown.image.bytes * 0.83),
+			pieChart = document.getElementById("pieChart"),
 			pieData = [
 				{
 					value: breakdown.image.bytes,
@@ -59,7 +59,6 @@ var Results = React.createClass({
 				}
 			];
 
-		let pieChart = document.getElementById("pieChart");
 		if (pieChart) {
 			pieChart.style.height = '300px';
 			var ctxPie = pieChart.getContext("2d");
@@ -68,9 +67,9 @@ var Results = React.createClass({
 
 		result = (
 			<div className="result">
-				<p>Images on your page have <h3>{breakdown.image.bytes} B</h3>
+				<div>Images on your page have <h3>{breakdown.image.bytes} B</h3>
 				It is <strong>{percentage}%</strong> of your total page size!
-				What about optimazing them?</p>
+				What about optimazing them?</div>
 				<p>Using <strong>WEBP</strong> format your page would save up to {webp} B ({webp/1024} KB).</p>
 				<p>Using <strong>BPG</strong> format your page would save up to {bpg} B ({bpg/1024} KB).</p>
 			</div>);
