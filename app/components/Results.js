@@ -7,13 +7,13 @@ var Results = React.createClass({
 		};
 	},
 
-	render: function() {
-		let result = null,
-			breakdown = this.props.breakdown,
-			percentage = Math.round(breakdown.image.bytes / this.props.fullResults.bytesIn * 100 * 100) / 100,
-			webp = Math.round(breakdown.image.bytes * 0.19),
-			bpg = Math.round(breakdown.image.bytes * 0.83),
-			pieChart = document.getElementById("pieChart"),
+	componentDidMount: function() {
+		this.createPieChart();
+	},
+
+	createPieChart: function() {
+		let pieChart = document.getElementById("pieChart");
+		const breakdown = this.props.breakdown,
 			pieData = [
 				{
 					value: breakdown.image.bytes,
@@ -60,24 +60,29 @@ var Results = React.createClass({
 			];
 
 		if (pieChart) {
-			pieChart.style.height = '300px';
-			var ctxPie = pieChart.getContext("2d");
-			var myDoughnutChart = new Chart(ctxPie).Doughnut(pieData, {});
-		}
+			const ctxPie = pieChart.getContext("2d");
 
-		result = (
-			<div className="result">
-				<div>Images on your page have <h3>{breakdown.image.bytes} B</h3>
-				It is <strong>{percentage}%</strong> of your total page size!
-				What about optimazing them?</div>
-				<p>Using <strong>WEBP</strong> format your page would save up to {webp} B ({webp/1024} KB).</p>
-				<p>Using <strong>BPG</strong> format your page would save up to {bpg} B ({bpg/1024} KB).</p>
-			</div>);
+			pieChart.style.height = '300px';
+			return new Chart(ctxPie).Doughnut(pieData, {});
+		}
+	},
+
+	render: function() {
+		let imageBytes = this.props.breakdown.image.bytes,
+			percentage = Math.round(imageBytes / this.props.fullResults.bytesIn * 100 * 100) / 100,
+			webp = Math.round(imageBytes * 0.19),
+			bpg = Math.round(imageBytes * 0.83);
 
 		return (
 			<div>
 				<canvas id="pieChart" width="300" height="300"></canvas>
-				{result}
+				<div className="result">
+					Images on your page have <h3>{imageBytes} B</h3>
+					It is <strong>{percentage}%</strong> of your total page size!
+					What about optimazing them?
+					<p>Using <strong>WEBP</strong> format your page would save up to {webp} B ({webp/1024} KB).</p>
+					<p>Using <strong>BPG</strong> format your page would save up to {bpg} B ({bpg/1024} KB).</p>
+				</div>
 			</div>
 		)
 	}
