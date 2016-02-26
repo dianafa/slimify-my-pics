@@ -49,7 +49,7 @@ var Main = React.createClass({
 					<UrlInput showHistory={this.showHistory} addToHistory={this.addToHistory} ref="UrlInput1"/>
 					<UrlInput showHistory={this.showHistory} addToHistory={this.addToHistory} ref="UrlInput2"/>
 				</div>
-				<button type="button" className="success button" onClick={this.onClick}>
+				<button type="button" className="go" onClick={this.onClick}>
 					Start
 				</button>
 				<div className="history-area">

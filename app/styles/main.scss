@@ -2,6 +2,23 @@ body {
 	background-color: lightgray;
 }
 
+input[type=text] {
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	height: 2.4375rem;
+	padding: .5rem;
+	border: 1px solid #cacaca;
+	margin: 0 0 1rem;
+	font-family: inherit;
+	font-size: 1rem;
+	color: #0a0a0a;
+	background-color: #fefefe;
+	box-shadow: inset 0 1px 2px rgba(10,10,10,.1);
+	border-radius: 0;
+	transition: box-shadow .5s,border-color .25s ease-in-out;
+}
+
 .welcome {
 	padding: 50px;
 	text-align: center;
@@ -9,15 +26,35 @@ body {
 
 .inputs-area {
 	display: flex;
+	justify-content: center;
+
 }
 
 .result {
 	text-align: center;
 }
 
-.button {
+.go {
+	background-color: #3adb76;
+	color: #fff;
 	display: flex;
 	margin: auto;
+	transition: background-color .25s ease-out,color .25s ease-out;
+	border: 1px solid transparent;
+	cursor: pointer;
+	padding: .85em 1em;
+
+	&:hover {
+		background-color: #22bb5b;
+	}
+}
+
+.url-input-component {
+	flex-basis: 40%;
+}
+
+.url-input {
+	display: flex;
 }
 
 .test-status-message {

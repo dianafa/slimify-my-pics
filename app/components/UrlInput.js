@@ -71,16 +71,12 @@ var UrlInput = React.createClass({
 		}
 
 		return (
-			<div>
-				<div className="row url-input">
-					<div className="medium-3 columns">
-						<label className="text-right middle">URL</label>
-					</div>
-					<div className="medium-5 columns">
-						<input type="text" name="url" value={value} onChange={this.handleChange} />
-					</div>
-					<div className="medium-12 columns test-status-message">{this.state.message}</div>
+			<div className="url-input-component">
+				<div className="url-input">
+					<label className="text-right middle">URL</label>
+					<input type="text" name="url" value={value} onChange={this.handleChange} />
 				</div>
+				<div className="medium-12 columns test-status-message">{this.state.message}</div>
 				{results}
 			</div>
 		)
