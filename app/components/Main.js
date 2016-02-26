@@ -13,6 +13,11 @@ var Main = React.createClass({
 		};
 	},
 
+	onClick: function() {
+		this.refs.UrlInput1.onClick();
+		this.refs.UrlInput2.onClick();
+	},
+
 	showHistory: function (url) {
 		var history = this.refs.historyComponent;
 		history.showHistory(url);
@@ -40,8 +45,16 @@ var Main = React.createClass({
 		return (
 			<div className="main-content">
 				<h2 className="welcome">Welcome!</h2>
-				<UrlInput showHistory={this.showHistory} addToHistory={this.addToHistory} />
-				<History ref="historyComponent" />
+				<div className="inputs-area">
+					<UrlInput showHistory={this.showHistory} addToHistory={this.addToHistory} ref="UrlInput1"/>
+					<UrlInput showHistory={this.showHistory} addToHistory={this.addToHistory} ref="UrlInput2"/>
+				</div>
+				<button type="button" className="success button" onClick={this.onClick}>
+					Start
+				</button>
+				<div className="history-area">
+					<History ref="historyComponent" />
+				</div>
 			</div>
 		)
 	}

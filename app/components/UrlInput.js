@@ -9,7 +9,7 @@ var UrlInput = React.createClass({
 	getInitialState: function() {
 		return {
 			message: "Please run test",
-			value: 'www.wp.pl',
+			value: 'www.onet.pl',
 			test_id: 0
 		};
 	},
@@ -21,17 +21,6 @@ var UrlInput = React.createClass({
 	onClick: function() {
 		this.setState({breakdown: null});
 		this.setState({totalPageSize: null});
-
-// 		//$.get("http://google.com", function(response) { debugger });
-// 		$.ajax({
-//     url: 'http://www.google.com/',
-//     type: 'GET',
-//     crossDomain: true, // enable this
-//     dataType: 'jsonp',
-//     success: function(data) { debugger },
-//     error: function(error) { debugger },
-//     //beforeSend: setHeader
-// });
 
 		this.getTestId().then(()=> {
 			this.checkForResults();
@@ -90,9 +79,6 @@ var UrlInput = React.createClass({
 					<div className="medium-5 columns">
 						<input type="text" name="url" value={value} onChange={this.handleChange} />
 					</div>
-					<button type="button" className="success button" onClick={this.onClick}>
-						Start
-					</button>
 					<div className="medium-12 columns test-status-message">{this.state.message}</div>
 				</div>
 				{results}

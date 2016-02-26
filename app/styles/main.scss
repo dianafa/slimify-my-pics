@@ -7,8 +7,17 @@ body {
 	text-align: center;
 }
 
+.inputs-area {
+	display: flex;
+}
+
 .result {
 	text-align: center;
+}
+
+.button {
+	display: flex;
+	margin: auto;
 }
 
 .test-status-message {
