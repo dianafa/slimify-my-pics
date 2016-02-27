@@ -71,7 +71,9 @@ var Results = React.createClass({
 		let imageBytes = this.props.breakdown.image.bytes,
 			percentage = Math.round(imageBytes / this.props.fullResults.bytesIn * 100 * 100) / 100,
 			webp = Math.round(imageBytes * 0.19),
-			bpg = Math.round(imageBytes * 0.83);
+			webpKB = Math.round(webp/1024),
+			bpg = Math.round(imageBytes * 0.83),
+			bpgKB = Math.round(bpg/1024);
 
 		return (
 			<div>
@@ -80,8 +82,8 @@ var Results = React.createClass({
 					Images on your page have <h3>{imageBytes} B</h3>
 					It is <strong>{percentage}%</strong> of your total page size!
 					What about optimazing them?
-					<p>Using <strong>WEBP</strong> format your page would save up to {webp} B ({webp/1024} KB).</p>
-					<p>Using <strong>BPG</strong> format your page would save up to {bpg} B ({bpg/1024} KB).</p>
+					<p>Using <strong>WEBP</strong> format your page would save up to {webp} B ({webpKB} KB).</p>
+					<p>Using <strong>BPG</strong> format your page would save up to {bpg} B ({bpgKB} KB).</p>
 				</div>
 			</div>
 		)

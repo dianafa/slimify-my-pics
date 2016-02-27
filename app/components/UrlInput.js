@@ -48,7 +48,7 @@ var UrlInput = React.createClass({
 						{breakdown: result.data.runs[1].firstView.breakdown}
 					);
 					this.setState({fullResults: result.data.runs[1].firstView});
-					document.getElementsByClassName('test-status-message')[0].style.color = 'green';
+					//document.getElementsByClassName('test-status-message')[0].style.color = 'green';
 
 					//save to DB
 					this.props.addToHistory(result);
@@ -76,7 +76,7 @@ var UrlInput = React.createClass({
 					<label className="text-right middle">URL</label>
 					<input type="text" name="url" value={value} onChange={this.handleChange} />
 				</div>
-				<div className="medium-12 columns test-status-message">{this.state.message}</div>
+				<div className="test-status-message">{this.state.message}</div>
 				{results}
 			</div>
 		)
